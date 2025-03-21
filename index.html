@@ -1,0 +1,3819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevPath - Roadmap de Desenvolvimento Web</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --primary-color: #3b82f6;
+      --secondary-color: #8b5cf6;
+      --accent-color: #06b6d4;
+      --text-color: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --sidebar-width: 280px;
+      --header-height: 60px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    a:hover {
+      color: var(--accent-color);
+    }
+
+    ul {
+      list-style-position: inside;
+    }
+
+    button {
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    /* Layout */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background-color: var(--card-bg);
+      height: var(--header-height);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--secondary-color);
+    }
+
+    .search-bar {
+      position: relative;
+      width: 300px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      padding-left: 2.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-size: 0.9rem;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--border-color);
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex: 1;
+      margin-top: var(--header-height);
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      position: fixed;
+      top: var(--header-height);
+      bottom: 0;
+      overflow-y: auto;
+      transition: var(--transition);
+      border-right: 1px solid var(--border-color);
+    }
+
+    .sidebar h3 {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .sidebar h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      margin: 0.25rem 0;
+      border-radius: 0.375rem;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: var(--primary-color);
+    }
+
+    .sidebar-link i {
+      margin-right: 0.75rem;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .sidebar-link:hover i,
+    .sidebar-link.active i {
+      color: var(--primary-color);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      margin-left: var(--sidebar-width);
+    }
+
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: rgba(59, 130, 246, 0.1);
+      border-radius: 0.5rem;
+      margin-right: 1rem;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    .section-frontend .section-icon {
+      background-color: rgba(139, 92, 246, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .section-backend .section-icon {
+      background-color: rgba(6, 182, 212, 0.1);
+      color: var(--accent-color);
+    }
+
+    .section-databases .section-icon {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: var(--success-color);
+    }
+
+    .section-devops .section-icon {
+      background-color: rgba(245, 158, 11, 0.1);
+      color: var(--warning-color);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 0.5rem;
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: var(--transition);
+      border: 1px solid var(--border-color);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-header {
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .section-frontend .card-title {
+      color: var(--secondary-color);
+    }
+
+    .section-backend .card-title {
+      color: var(--accent-color);
+    }
+
+    .section-databases .card-title {
+      color: var(--success-color);
+    }
+
+    .section-devops .card-title {
+      color: var(--warning-color);
+    }
+
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .card-content {
+      flex: 1;
+    }
+
+    .card-list {
+      margin-top: 1rem;
+      margin-left: 0.5rem;
+    }
+
+    .card-list li {
+      margin-bottom: 0.75rem;
+      position: relative;
+      padding-left: 1.5rem;
+      list-style-type: none;
+    }
+
+    .card-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .section-frontend .card-list li::before {
+      color: var(--secondary-color);
+    }
+
+    .section-backend .card-list li::before {
+      color: var(--accent-color);
+    }
+
+    .section-databases .card-list li::before {
+      color: var(--success-color);
+    }
+
+    .section-devops .card-list li::before {
+      color: var(--warning-color);
+    }
+
+    .card-footer {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .difficulty {
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .difficulty.beginner {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: var(--success-color);
+    }
+
+    .difficulty.intermediate {
+      background-color: rgba(245, 158, 11, 0.1);
+      color: var(--warning-color);
+    }
+
+    .difficulty.advanced {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: var(--danger-color);
+    }
+
+    .learn-more {
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .learn-more i {
+      margin-left: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .learn-more:hover i {
+      transform: translateX(3px);
+    }
+
+    .detail-section {
+      margin-bottom: 2rem;
+    }
+
+    .detail-section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--primary-color);
+    }
+
+    .section-frontend .detail-section-title {
+      color: var(--secondary-color);
+    }
+
+    .section-backend .detail-section-title {
+      color: var(--accent-color);
+    }
+
+    .section-databases .detail-section-title {
+      color: var(--success-color);
+    }
+
+    .section-devops .detail-section-title {
+      color: var(--warning-color);
+    }
+
+    .detail-list {
+      list-style-type: none;
+      margin-left: 0.5rem;
+    }
+
+    .detail-list li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .detail-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+    }
+
+    .section-frontend .detail-list li::before {
+      color: var(--secondary-color);
+    }
+
+    .section-backend .detail-list li::before {
+      color: var(--accent-color);
+    }
+
+    .section-databases .detail-list li::before {
+      color: var(--success-color);
+    }
+
+    .section-devops .detail-list li::before {
+      color: var(--warning-color);
+    }
+
+    .nested-list {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+      list-style-type: none;
+    }
+
+    .nested-list li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .nested-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    .tech-pill {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      background-color: var(--border-color);
+      transition: var(--transition);
+    }
+
+    .tech-pill:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .tech-pill.frontend {
+      background-color: rgba(139, 92, 246, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .tech-pill.frontend:hover {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+
+    .tech-pill.backend {
+      background-color: rgba(6, 182, 212, 0.1);
+      color: var(--accent-color);
+    }
+
+    .tech-pill.backend:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .tech-pill.database {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: var(--success-color);
+    }
+
+    .tech-pill.database:hover {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .tech-pill.devops {
+      background-color: rgba(245, 158, 11, 0.1);
+      color: var(--warning-color);
+    }
+
+    .tech-pill.devops:hover {
+      background-color: var(--warning-color);
+      color: white;
+    }
+
+    .note-block {
+      background-color: rgba(59, 130, 246, 0.05);
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+
+    .note-block.tip {
+      background-color: rgba(16, 185, 129, 0.05);
+      border-left-color: var(--success-color);
+    }
+
+    .note-block.warning {
+      background-color: rgba(245, 158, 11, 0.05);
+      border-left-color: var(--warning-color);
+    }
+
+    .note-block.important {
+      background-color: rgba(239, 68, 68, 0.05);
+      border-left-color: var(--danger-color);
+    }
+
+    .note-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .note-title i {
+      margin-right: 0.5rem;
+    }
+
+    .tip .note-title {
+      color: var(--success-color);
+    }
+
+    .warning .note-title {
+      color: var(--warning-color);
+    }
+
+    .important .note-title {
+      color: var(--danger-color);
+    }
+
+    .progress-block {
+      background-color: var(--card-bg);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .progress-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bars {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .progress-item {
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      height: 0.5rem;
+      background-color: var(--border-color);
+      border-radius: 0.25rem;
+      overflow: hidden;
+    }
+
+    .progress-value {
+      height: 100%;
+      border-radius: 0.25rem;
+      background-color: var(--primary-color);
+    }
+
+    .progress-value.frontend {
+      background-color: var(--secondary-color);
+    }
+
+    .progress-value.backend {
+      background-color: var(--accent-color);
+    }
+
+    .progress-value.database {
+      background-color: var(--success-color);
+    }
+
+    .progress-value.devops {
+      background-color: var(--warning-color);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .floating-nav {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 50;
+    }
+
+    .floating-nav-button {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .floating-nav-button:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .back-to-top {
+      background-color: var(--card-bg);
+      color: var(--text-color);
+    }
+
+    .back-to-top:hover {
+      background-color: var(--border-color);
+    }
+
+    @media (max-width: 1024px) {
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        z-index: 90;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .search-bar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-bars {
+        grid-template-columns: 1fr;
+      }
+
+      .header {
+        padding: 0 1rem;
+      }
+
+      .main-content {
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <header class="header">
+      <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="logo">Dev<span>Path</span></div>
+      <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Buscar tecnologia..." />
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <aside class="sidebar">
+        <h3>Frontend</h3>
+        <a href="#html-css" class="sidebar-link">
+          <i class="fab fa-html5"></i>
+          HTML & CSS
+        </a>
+        <a href="#javascript" class="sidebar-link">
+          <i class="fab fa-js"></i>
+          JavaScript
+        </a>
+        <a href="#typescript" class="sidebar-link">
+          <i class="fab fa-js"></i>
+          TypeScript
+        </a>
+        <a href="#frontend-tools" class="sidebar-link">
+          <i class="fas fa-toolbox"></i>
+          Ferramentas de Desenvolvimento
+        </a>
+        <a href="#frontend-frameworks" class="sidebar-link">
+          <i class="fab fa-react"></i>
+          Frameworks & Bibliotecas
+        </a>
+
+        <h3>Backend</h3>
+        <a href="#nodejs" class="sidebar-link">
+          <i class="fab fa-node-js"></i>
+          Node.js
+        </a>
+        <a href="#backend-frameworks" class="sidebar-link">
+          <i class="fas fa-server"></i>
+          Frameworks Backend
+        </a>
+        <a href="#authentication" class="sidebar-link">
+          <i class="fas fa-lock"></i>
+          Autenticação & Segurança
+        </a>
+        <a href="#api-development" class="sidebar-link">
+          <i class="fas fa-plug"></i>
+          Desenvolvimento de APIs
+        </a>
+        <a href="#web-servers" class="sidebar-link">
+          <i class="fas fa-network-wired"></i>
+          Servidores Web
+        </a>
+
+        <h3>Banco de Dados</h3>
+        <a href="#sql-databases" class="sidebar-link">
+          <i class="fas fa-database"></i>
+          Bancos Relacionais (SQL)
+        </a>
+        <a href="#nosql-databases" class="sidebar-link">
+          <i class="fas fa-cubes"></i>
+          Bancos Não-Relacionais (NoSQL)
+        </a>
+        <a href="#database-patterns" class="sidebar-link">
+          <i class="fas fa-cogs"></i>
+          Padrões e Conceitos
+        </a>
+
+        <h3>DevOps</h3>
+        <a href="#deployment" class="sidebar-link">
+          <i class="fas fa-rocket"></i>
+          Deployment & Hosting
+        </a>
+        <a href="#containerization" class="sidebar-link">
+          <i class="fab fa-docker"></i>
+          Containerização
+        </a>
+        <a href="#cicd" class="sidebar-link">
+          <i class="fas fa-sync-alt"></i>
+          CI/CD
+        </a>
+      </aside>
+      <main class="main-content">
+        <div class="progress-block">
+          <h2 class="progress-title">Áreas de Conhecimento</h2>
+          <div class="progress-bars">
+            <div>
+              <div class="progress-item">
+                <div class="progress-label">
+                  <span>Frontend</span>
+                  <span>HTML, CSS, JavaScript, Frameworks</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-value frontend" style="width: 35%;"></div>
+                </div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-label">
+                  <span>Backend</span>
+                  <span>Node.js, APIs, Servidores</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-value backend" style="width: 25%;"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="progress-item">
+                <div class="progress-label">
+                  <span>Bancos de Dados</span>
+                  <span>SQL, NoSQL, Padrões</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-value database" style="width: 20%;"></div>
+                </div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-label">
+                  <span>DevOps</span>
+                  <span>Deployment, Containers, CI/CD</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-value devops" style="width: 20%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FRONTEND SECTION -->
+        <div class="section section-frontend">
+          <div class="section-header">
+            <div class="section-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h2 class="section-title">Desenvolvimento Frontend</h2>
+          </div>
+
+          <!-- HTML & CSS -->
+          <div id="html-css" class="detail-section">
+            <h3 class="detail-section-title">HTML & CSS</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">HTML5 Avançado</h4>
+                  <p class="card-subtitle">A linguagem de marcação que estrutura o conteúdo web</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Estrutura semântica (header, nav, section, article, footer)</li>
+                    <li>Formulários avançados e validação nativa</li>
+                    <li>APIs do HTML5 (Canvas, SVG, Web Storage, Web Workers)</li>
+                    <li>Atributos de dados personalizados (data-*)</li>
+                    <li>Armazenamento local e sessão</li>
+                    <li>SEO estrutural e metadados</li>
+                    <li>Acessibilidade (ARIA, WAI-ARIA, WCAG 2.1)</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">CSS Moderno</h4>
+                  <p class="card-subtitle">Estilização avançada para layouts modernos</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Box model avançado</li>
+                    <li>Flexbox para layouts unidimensionais</li>
+                    <li>Grid para layouts bidimensionais complexos</li>
+                    <li>CSS Custom Properties (variáveis)</li>
+                    <li>Media queries e design responsivo</li>
+                    <li>Animações e transições</li>
+                    <li>Transformações 2D e 3D</li>
+                    <li>Seletores avançados e pseudo-elementos</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Pré-processadores CSS</h4>
+                  <p class="card-subtitle">Extensões para tornar o CSS mais poderoso</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>SASS/SCSS
+                      <ul class="nested-list">
+                        <li>Variáveis e escopo</li>
+                        <li>Mixins e funções</li>
+                        <li>Aninhamento e herança (@extend)</li>
+                        <li>Partials e modularização</li>
+                        <li>Operadores e cálculos</li>
+                      </ul>
+                    </li>
+                    <li>Less
+                      <ul class="nested-list">
+                        <li>Variáveis e mixins</li>
+                        <li>Funções e operações</li>
+                        <li>Importação de módulos</li>
+                      </ul>
+                    </li>
+                    <li>PostCSS
+                      <ul class="nested-list">
+                        <li>Plugins e extensibilidade</li>
+                        <li>Autoprefixer e cssnano</li>
+                        <li>Integração com ferramentas modernas</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Frameworks CSS</h4>
+                  <p class="card-subtitle">Bibliotecas de utilidades e componentes visuais</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Tailwind CSS
+                      <ul class="nested-list">
+                        <li>Abordagem utility-first</li>
+                        <li>Customização e configuração</li>
+                        <li>JIT (Just-In-Time) Compiler</li>
+                        <li>Plugins e extensões</li>
+                      </ul>
+                    </li>
+                    <li>Bootstrap 5
+                      <ul class="nested-list">
+                        <li>Sistema de grid e flexbox</li>
+                        <li>Componentes prontos</li>
+                        <li>Customização via Sass</li>
+                        <li>JavaScript integrado</li>
+                      </ul>
+                    </li>
+                    <li>Material UI e outros sistemas de design</li>
+                    <li>CSS-in-JS (Styled-components, Emotion)</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block tip">
+              <div class="note-title"><i class="fas fa-lightbulb"></i> Dica</div>
+              <p>Domine o CSS vanilla (especialmente Flexbox e Grid) antes de se aprofundar em frameworks CSS. Isso lhe
+                dará uma base sólida para entender como as ferramentas funcionam internamente.</p>
+            </div>
+          </div>
+
+          <!-- JavaScript -->
+          <div id="javascript" class="detail-section">
+            <h3 class="detail-section-title">JavaScript</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">JavaScript Fundamental</h4>
+                  <p class="card-subtitle">Base da programação web moderna</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Sintaxe, tipos de dados e estruturas de dados</li>
+                    <li>Funções e escopo
+                      <ul class="nested-list">
+                        <li>Arrow functions</li>
+                        <li>Closures</li>
+                        <li>Higher-order functions</li>
+                      </ul>
+                    </li>
+                    <li>Objetos e protótipos</li>
+                    <li>This, bind, call e apply</li>
+                    <li>Contexto de execução e pilha de chamadas</li>
+                    <li>Manipulação de eventos</li>
+                    <li>Tratamento de erros (try/catch)</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">JavaScript Moderno (ES6+)</h4>
+                  <p class="card-subtitle">Recursos avançados e padrões modernos</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Let, const e escopo de bloco</li>
+                    <li>Template literals e interpolação</li>
+                    <li>Desestruturação e spread operator</li>
+                    <li>Parâmetros padrão e rest</li>
+                    <li>Classes e herança</li>
+                    <li>Módulos (import/export)</li>
+                    <li>Promessas e async/await</li>
+                    <li>Generators e iterators</li>
+                    <li>Map, Set, WeakMap, WeakSet</li>
+                    <li>Proxy e Reflect</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">DOM e APIs Web</h4>
+                  <p class="card-subtitle">Interação com elementos HTML e recursos do navegador</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Manipulação do DOM
+                      <ul class="nested-list">
+                        <li>Seletores e traversing</li>
+                        <li>Modificação de elementos</li>
+                        <li>Eventos e delegação</li>
+                      </ul>
+                    </li>
+                    <li>Fetch API e AJAX</li>
+                    <li>APIs modernas:
+                      <ul class="nested-list">
+                        <li>LocalStorage e SessionStorage</li>
+                        <li>Geolocation API</li>
+                        <li>Web Workers</li>
+                        <li>Service Workers e PWAs</li>
+                        <li>WebSockets</li>
+                        <li>Canvas e WebGL</li>
+                        <li>File API e Drag & Drop</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Padrões de Design JavaScript</h4>
+                  <p class="card-subtitle">Padrões para organizar e escalar código</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Programação Funcional
+                      <ul class="nested-list">
+                        <li>Imutabilidade</li>
+                        <li>Funções puras</li>
+                        <li>Composição de funções</li>
+                        <li>Recursividade</li>
+                      </ul>
+                    </li>
+                    <li>Padrões de design
+                      <ul class="nested-list">
+                        <li>Module e Revealing Module</li>
+                        <li>Factory e Constructor</li>
+                        <li>Singleton</li>
+                        <li>Observer e Pub/Sub</li>
+                        <li>MVC, MVP e MVVM</li>
+                      </ul>
+                    </li>
+                    <li>Gerenciamento de estado</li>
+                    <li>Otimização de performance</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block warning">
+              <div class="note-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+              <p>JavaScript é uma linguagem com muitas peculiaridades. Certifique-se de compreender conceitos como
+                hoisting, coerção de tipos, prototype chain e escopo de execução para evitar bugs difíceis de depurar.
+              </p>
+            </div>
+          </div>
+
+          <!-- TypeScript -->
+          <div id="typescript" class="detail-section">
+            <h3 class="detail-section-title">TypeScript</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Fundamentos do TypeScript</h4>
+                  <p class="card-subtitle">Tipagem estática para JavaScript</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Tipos básicos e anotações</li>
+                    <li>Interfaces e type aliases</li>
+                    <li>Enums e tuplas</li>
+                    <li>Union e intersection types</li>
+                    <li>Configuração do compilador (tsconfig.json)</li>
+                    <li>Migração gradual de JavaScript para TypeScript</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">TypeScript Avançado</h4>
+                  <p class="card-subtitle">Recursos avançados do sistema de tipos</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Generics
+                      <ul class="nested-list">
+                        <li>Funções e classes genéricas</li>
+                        <li>Constraints em generics</li>
+                        <li>Utility types</li>
+                      </ul>
+                    </li>
+                    <li>Decorators
+                      <ul class="nested-list">
+                        <li>Class decorators</li>
+                        <li>Method decorators</li>
+                        <li>Property decorators</li>
+                      </ul>
+                    </li>
+                    <li>Type Guards e Type Narrowing</li>
+                    <li>Mapped Types e Conditional Types</li>
+                    <li>Template Literal Types</li>
+                    <li>Declaration merging</li>
+                    <li>Namespace e módulos</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">TypeScript com Frameworks</h4>
+                  <p class="card-subtitle">Integrando TypeScript com bibliotecas populares</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>React com TypeScript
+                      <ul class="nested-list">
+                        <li>Props tipadas e generics</li>
+                        <li>Tipagem de hooks</li>
+                        <li>Context API tipada</li>
+                        <li>Tipagem de eventos</li>
+                      </ul>
+                    </li>
+                    <li>Vue com TypeScript</li>
+                    <li>Node.js com TypeScript</li>
+                    <li>Tipando bibliotecas de terceiros</li>
+                    <li>Criando arquivos de declaração (.d.ts)</li>
+                    <li>Ferramentas como TSDoc</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block important">
+              <div class="note-title"><i class="fas fa-info-circle"></i> Importante</div>
+              <p>TypeScript não é apenas sobre adicionar tipos; é uma ferramenta poderosa para documentar seu código,
+                prevenir bugs e melhorar a produtividade da equipe. Invista tempo em aprender suas capacidades mais
+                avançadas.</p>
+            </div>
+          </div>
+
+          <!-- Frontend Tools -->
+          <div id="frontend-tools" class="detail-section">
+            <h3 class="detail-section-title">Ferramentas de Desenvolvimento</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Gerenciamento de Pacotes</h4>
+                  <p class="card-subtitle">Ferramentas para gerenciar dependências</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>npm
+                      <ul class="nested-list">
+                        <li>package.json e estrutura</li>
+                        <li>Configuração e scripts</li>
+                        <li>Semver e versionamento</li>
+                        <li>Publicação de pacotes</li>
+                        <li>workspaces e monorepos</li>
+                      </ul>
+                    </li>
+                    <li>Yarn
+                      <ul class="nested-list">
+                        <li>Plug'n'Play e Zero-installs</li>
+                        <li>Workspaces</li>
+                        <li>Resolução de conflitos</li>
+                      </ul>
+                    </li>
+                    <li>pnpm
+                      <ul class="nested-list">
+                        <li>Estrutura de hard links</li>
+                        <li>Economia de espaço em disco</li>
+                        <li>Monorepos com pnpm</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Build Tools & Bundlers</h4>
+                  <p class="card-subtitle">Ferramentas para otimização e empacotamento</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Webpack
+                      <ul class="nested-list">
+                        <li>Configuração e loaders</li>
+                        <li>Code splitting e lazy loading</li>
+                        <li>Tree shaking</li>
+                        <li>Hot Module Replacement</li>
+                      </ul>
+                    </li>
+                    <li>Vite
+                      <ul class="nested-list">
+                        <li>ESM nativo para desenvolvimento</li>
+                        <li>Configuração simplificada</li>
+                        <li>Plugins e integração</li>
+                      </ul>
+                    </li>
+                    <li>Rollup
+                      <ul class="nested-list">
+                        <li>Foco em bibliotecas</li>
+                        <li>Tree shaking eficiente</li>
+                      </ul>
+                    </li>
+                    <li>ESBuild e SWC
+                      <ul class="nested-list">
+                        <li>Bundlers escritos em Go/Rust</li>
+                        <li>Performance extrema</li>
+                      </ul>
+                    </li>
+                    <li>Babel
+                      <ul class="nested-list">
+                        <li>Transpilação de JavaScript</li>
+                        <li>Presets e plugins</li>
+                        <li>Polyfills</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Linters & Formatters</h4>
+                  <p class="card-subtitle">Ferramentas para padronização de código</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>ESLint
+                      <ul class="nested-list">
+                        <li>Configuração e regras</li>
+                        <li>Plugins e extensões</li>
+                        <li>Integração com editores</li>
+                        <li>Configurações populares (Airbnb, Standard)</li>
+                      </ul>
+                    </li>
+                    <li>Prettier
+                      <ul class="nested-list">
+                        <li>Formatação automática</li>
+                        <li>Integração com ESLint</li>
+                        <li>Configuração personalizada</li>
+                      </ul>
+                    </li>
+                    <li>TypeScript Compiler (tsc)
+                      <ul class="nested-list">
+                        <li>Configuração avançada</li>
+                        <li>Verificação de tipos estrita</li>
+                      </ul>
+                    </li>
+                    <li>StyleLint para CSS/SCSS</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Controle de Versão</h4>
+                  <p class="card-subtitle">Ferramentas para colaboração e histórico de código</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Git
+                      <ul class="nested-list">
+                        <li>Comandos básicos e avançados</li>
+                        <li>Branching e merging</li>
+                        <li>Resolução de conflitos</li>
+                        <li>Rebase, cherry-pick, bisect</li>
+                        <li>Git hooks</li>
+                      </ul>
+                    </li>
+                    <li>Plataformas
+                      <ul class="nested-list">
+                        <li>GitHub</li>
+                        <li>GitLab</li>
+                        <li>Bitbucket</li>
+                      </ul>
+                    </li>
+                    <li>Fluxos de trabalho
+                      <ul class="nested-list">
+                        <li>GitFlow</li>
+                        <li>GitHub Flow</li>
+                        <li>Trunk-based development</li>
+                      </ul>
+                    </li>
+                    <li>Semantic Versioning</li>
+                    <li>Conventional Commits</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block tip">
+              <div class="note-title"><i class="fas fa-lightbulb"></i> Dica</div>
+              <p>Invista tempo configurando seu ambiente de desenvolvimento. Um bom setup com ESLint, Prettier,
+                TypeScript e um bom bundler irá economizar horas de depuração e refatoração no futuro.</p>
+            </div>
+          </div>
+
+          <!-- Frontend Frameworks -->
+          <div id="frontend-frameworks" class="detail-section">
+            <h3 class="detail-section-title">Frameworks & Bibliotecas Frontend</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">React</h4>
+                  <p class="card-subtitle">Biblioteca para construção de interfaces</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Fundamentos
+                      <ul class="nested-list">
+                        <li>Virtual DOM e reconciliação</li>
+                        <li>JSX e elementos</li>
+                        <li>Componentes e props</li>
+                        <li>State e lifecycle</li>
+                      </ul>
+                    </li>
+                    <li>Hooks
+                      <ul class="nested-list">
+                        <li>useState, useEffect, useRef</li>
+                        <li>useContext, useReducer</li>
+                        <li>useMemo, useCallback</li>
+                        <li>Hooks personalizados</li>
+                      </ul>
+                    </li>
+                    <li>Padrões avançados
+                      <ul class="nested-list">
+                        <li>Render props</li>
+                        <li>Higher-Order Components</li>
+                        <li>Context API</li>
+                        <li>Error boundaries</li>
+                        <li>Portals e Fragments</li>
+                        <li>Suspense e lazy loading</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Ecossistema React</h4>
+                  <p class="card-subtitle">Bibliotecas e ferramentas complementares</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Roteamento
+                      <ul class="nested-list">
+                        <li>React Router</li>
+                        <li>TanStack Router</li>
+                      </ul>
+                    </li>
+                    <li>Gerenciamento de Estado
+                      <ul class="nested-list">
+                        <li>Redux e Redux Toolkit</li>
+                        <li>Zustand</li>
+                        <li>Jotai/Recoil</li>
+                        <li>MobX</li>
+                        <li>Context API + useReducer</li>
+                      </ul>
+                    </li>
+                    <li>Formulários
+                      <ul class="nested-list">
+                        <li>React Hook Form</li>
+                        <li>Formik</li>
+                        <li>Final Form</li>
+                      </ul>
+                    </li>
+                    <li>Consulta de dados
+                      <ul class="nested-list">
+                        <li>React Query</li>
+                        <li>SWR</li>
+                        <li>Apollo Client (GraphQL)</li>
+                        <li>Relay (GraphQL)</li>
+                      </ul>
+                    </li>
+                    <li>Testes
+                      <ul class="nested-list">
+                        <li>React Testing Library</li>
+                        <li>Jest</li>
+                        <li>Cypress</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Next.js</h4>
+                  <p class="card-subtitle">Framework React para aplicações web</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Fundamentos
+                      <ul class="nested-list">
+                        <li>Pages e API Routes</li>
+                        <li>App Router vs Pages Router</li>
+                        <li>Layouts e templates</li>
+                        <li>Middleware</li>
+                      </ul>
+                    </li>
+                    <li>Renderização
+                      <ul class="nested-list">
+                        <li>Server-Side Rendering (SSR)</li>
+                        <li>Static Site Generation (SSG)</li>
+                        <li>Incremental Static Regeneration (ISR)</li>
+                        <li>Client-side rendering</li>
+                        <li>Server Components vs Client Components</li>
+                      </ul>
+                    </li>
+                    <li>Features avançadas
+                      <ul class="nested-list">
+                        <li>Data fetching (getServerSideProps, getStaticProps)</li>
+                        <li>Image Optimization</li>
+                        <li>Internationalization</li>
+                        <li>Authentication</li>
+                        <li>Dynamic imports</li>
+                        <li>Edge Functions</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Alternativas ao React</h4>
+                  <p class="card-subtitle">Outras bibliotecas e frameworks</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Vue.js
+                      <ul class="nested-list">
+                        <li>Composition API e Options API</li>
+                        <li>Single File Components</li>
+                        <li>Vuex e Pinia (gerenciamento de estado)</li>
+                        <li>Vue Router</li>
+                        <li>Nuxt.js (framework Vue)</li>
+                      </ul>
+                    </li>
+                    <li>Angular
+                      <ul class="nested-list">
+                        <li>Framework completo com TypeScript</li>
+                        <li>RxJS e programação reativa</li>
+                        <li>Sistema de módulos e DI</li>
+                        <li>Angular CLI e ferramentas</li>
+                        <li>Angular Universal (SSR)</li>
+                      </ul>
+                    </li>
+                    <li>Svelte
+                      <ul class="nested-list">
+                        <li>Compilação em tempo de build</li>
+                        <li>Reatividade sem Virtual DOM</li>
+                        <li>SvelteKit (framework full-stack)</li>
+                        <li>Store para gerenciamento de estado</li>
+                      </ul>
+                    </li>
+                    <li>Solid.js
+                      <ul class="nested-list">
+                        <li>Inspirado em React, mas com performance superior</li>
+                        <li>Reatividade granular</li>
+                        <li>Padrões similares ao React (JSX, Hooks)</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block warning">
+              <div class="note-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+              <p>Não tente aprender vários frameworks simultaneamente. Escolha um (React é uma boa opção por sua
+                popularidade) e aprenda-o profundamente antes de expandir para outros.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACKEND SECTION -->
+        <div class="section section-backend">
+          <div class="section-header">
+            <div class="section-icon">
+              <i class="fas fa-server"></i>
+            </div>
+            <h2 class="section-title">Desenvolvimento Backend</h2>
+          </div>
+
+          <!-- Node.js -->
+          <div id="nodejs" class="detail-section">
+            <h3 class="detail-section-title">Node.js</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Fundamentos do Node.js</h4>
+                  <p class="card-subtitle">Runtime JavaScript baseado no V8</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Arquitetura e Event Loop
+                      <ul class="nested-list">
+                        <li>Single-threaded e assíncrono</li>
+                        <li>Event Loop e fases</li>
+                        <li>Libuv e I/O não bloqueante</li>
+                        <li>Worker threads</li>
+                      </ul>
+                    </li>
+                    <li>Módulos e sistema de pacotes
+                      <ul class="nested-list">
+                        <li>CommonJS vs ESM</li>
+                        <li>Criação de módulos</li>
+                        <li>npm e package.json</li>
+                      </ul>
+                    </li>
+                    <li>Módulos nativos essenciais
+                      <ul class="nested-list">
+                        <li>fs (sistema de arquivos)</li>
+                        <li>path (manipulação de caminhos)</li>
+                        <li>http/https (servidores web)</li>
+                        <li>stream (streaming de dados)</li>
+                        <li>buffer (manipulação binária)</li>
+                        <li>events (emissores de eventos)</li>
+                        <li>util e outros utilitários</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Programação Assíncrona</h4>
+                  <p class="card-subtitle">Padrões para operações não-bloqueantes</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Callbacks e callback hell</li>
+                    <li>Promises
+                      <ul class="nested-list">
+                        <li>Criação e encadeamento</li>
+                        <li>Promise.all, Promise.race, Promise.allSettled</li>
+                        <li>Error handling</li>
+                      </ul>
+                    </li>
+                    <li>Async/Await
+                      <ul class="nested-list">
+                        <li>Top-level await</li>
+                        <li>Try/catch e error handling</li>
+                        <li>Execução paralela vs sequencial</li>
+                      </ul>
+                    </li>
+                    <li>Streams
+                      <ul class="nested-list">
+                        <li>Readable, Writable, Transform</li>
+                        <li>Pipe e pipeline</li>
+                        <li>Backpressure</li>
+                      </ul>
+                    </li>
+                    <li>Events e EventEmitter</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Desenvolvimento Avançado</h4>
+                  <p class="card-subtitle">Tópicos para aplicações robustas</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Performance e otimização
+                      <ul class="nested-list">
+                        <li>Profiling e diagnóstico</li>
+                        <li>Memory leaks</li>
+                        <li>CPU-bound vs I/O-bound</li>
+                        <li>Cluster module</li>
+                        <li>PM2 e gestão de processos</li>
+                      </ul>
+                    </li>
+                    <li>Debugging
+                      <ul class="nested-list">
+                        <li>Chrome DevTools Inspector</li>
+                        <li>Node.js Debugger</li>
+                        <li>Inspeção remota</li>
+                      </ul>
+                    </li>
+                    <li>Segurança
+                      <ul class="nested-list">
+                        <li>Práticas seguras</li>
+                        <li>Dependências seguras</li>
+                        <li>Validação e sanitização</li>
+                        <li>Vulnerabilidades comuns</li>
+                      </ul>
+                    </li>
+                    <li>Testabilidade
+                      <ul class="nested-list">
+                        <li>Testes unitários</li>
+                        <li>Testes de integração</li>
+                        <li>Mocking e stubbing</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Ferramentas e Ecossistema</h4>
+                  <p class="card-subtitle">Bibliotecas e ferramentas essenciais</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Bibliotecas utilitárias
+                      <ul class="nested-list">
+                        <li>Lodash/Underscore</li>
+                        <li>date-fns/moment</li>
+                        <li>axios/got/node-fetch</li>
+                      </ul>
+                    </li>
+                    <li>Processamento
+                      <ul class="nested-list">
+                        <li>Child processes</li>
+                        <li>Worker threads</li>
+                        <li>Bibliotecas de paralelismo</li>
+                      </ul>
+                    </li>
+                    <li>Templating engines
+                      <ul class="nested-list">
+                        <li>EJS, Pug, Handlebars</li>
+                      </ul>
+                    </li>
+                    <li>Logging e monitoramento
+                      <ul class="nested-list">
+                        <li>Winston, Pino</li>
+                        <li>Sentry, New Relic</li>
+                      </ul>
+                    </li>
+                    <li>Ambientes e configuração
+                      <ul class="nested-list">
+                        <li>dotenv, config</li>
+                        <li>cross-env</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block tip">
+              <div class="note-title"><i class="fas fa-lightbulb"></i> Dica</div>
+              <p>Entender profundamente o modelo de execução assíncrona e o Event Loop do Node.js é crucial para
+                desenvolver aplicações eficientes e evitar problemas de performance.</p>
+            </div>
+          </div>
+
+          <!-- Backend Frameworks -->
+          <div id="backend-frameworks" class="detail-section">
+            <h3 class="detail-section-title">Frameworks Backend</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Express.js</h4>
+                  <p class="card-subtitle">Framework web minimalista para Node.js</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Fundamentos
+                      <ul class="nested-list">
+                        <li>Roteamento</li>
+                        <li>Middleware</li>
+                        <li>Request e Response</li>
+                        <li>Error handling</li>
+                      </ul>
+                    </li>
+                    <li>Middleware essenciais
+                      <ul class="nested-list">
+                        <li>body-parser</li>
+                        <li>cors</li>
+                        <li>compression</li>
+                        <li>helmet</li>
+                        <li>morgan</li>
+                      </ul>
+                    </li>
+                    <li>Organização de código
+                      <ul class="nested-list">
+                        <li>Estrutura de pastas</li>
+                        <li>Models, Views, Controllers</li>
+                        <li>Roteadores</li>
+                        <li>Serviços</li>
+                      </ul>
+                    </li>
+                    <li>Integração com banco de dados</li>
+                    <li>Template engines</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">NestJS</h4>
+                  <p class="card-subtitle">Framework progressivo para aplicações escaláveis</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Arquitetura
+                      <ul class="nested-list">
+                        <li>Módulos</li>
+                        <li>Controladores</li>
+                        <li>Providers e Serviços</li>
+                        <li>Injeção de dependências</li>
+                      </ul>
+                    </li>
+                    <li>Decorators
+                      <ul class="nested-list">
+                        <li>Class decorators</li>
+                        <li>Method decorators</li>
+                        <li>Parameter decorators</li>
+                        <li>Custom decorators</li>
+                      </ul>
+                    </li>
+                    <li>Features avançadas
+                      <ul class="nested-list">
+                        <li>DTOs e validação</li>
+                        <li>Pipes, Guards, Interceptors</li>
+                        <li>Exceções e filters</li>
+                        <li>Microserviços</li>
+                        <li>GraphQL</li>
+                        <li>WebSockets</li>
+                      </ul>
+                    </li>
+                    <li>Testing
+                      <ul class="nested-list">
+                        <li>Unit testing</li>
+                        <li>E2E testing</li>
+                        <li>Test fixtures</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Alternativas Node.js</h4>
+                  <p class="card-subtitle">Outros frameworks populares</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Fastify
+                      <ul class="nested-list">
+                        <li>Foco em performance</li>
+                        <li>Validação de esquema integrada</li>
+                        <li>Sistema de plugins</li>
+                        <li>TypeScript support</li>
+                      </ul>
+                    </li>
+                    <li>Koa.js
+                      <ul class="nested-list">
+                        <li>Successor espiritual do Express</li>
+                        <li>Middleware cascading</li>
+                        <li>Suporte nativo a async/await</li>
+                      </ul>
+                    </li>
+                    <li>Hapi.js
+                      <ul class="nested-list">
+                        <li>Framework enterprise-focused</li>
+                        <li>Configuração sobre código</li>
+                        <li>Validação, autenticação integradas</li>
+                      </ul>
+                    </li>
+                    <li>Adonis.js
+                      <ul class="nested-list">
+                        <li>Framework full-stack inspirado no Laravel</li>
+                        <li>ORM integrado</li>
+                        <li>Auth, validação e mais built-in</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Outras Linguagens Backend</h4>
+                  <p class="card-subtitle">Alternativas ao Node.js</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Python
+                      <ul class="nested-list">
+                        <li>Django (framework full-stack)</li>
+                        <li>FastAPI (API modernas e rápidas)</li>
+                        <li>Flask (microframework)</li>
+                      </ul>
+                    </li>
+                    <li>Java
+                      <ul class="nested-list">
+                        <li>Spring Boot</li>
+                        <li>Quarkus</li>
+                        <li>Micronaut</li>
+                      </ul>
+                    </li>
+                    <li>Go
+                      <ul class="nested-list">
+                        <li>Gin</li>
+                        <li>Echo</li>
+                        <li>Fiber</li>
+                      </ul>
+                    </li>
+                    <li>Ruby on Rails</li>
+                    <li>PHP (Laravel, Symfony)</li>
+                    <li>C# (.NET Core)</li>
+                    <li>Rust (Actix, Rocket)</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block warning">
+              <div class="note-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+              <p>Frameworks diferentes são otimizados para diferentes casos de uso. Express é ótimo para APIs simples e
+                prototipagem, enquanto NestJS é melhor para aplicações empresariais complexas.</p>
+            </div>
+          </div>
+
+          <!-- Authentication & Security -->
+          <div id="authentication" class="detail-section">
+            <h3 class="detail-section-title">Autenticação & Segurança</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Autenticação</h4>
+                  <p class="card-subtitle">Sistemas para identificação de usuários</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Métodos de autenticação
+                      <ul class="nested-list">
+                        <li>Baseada em tokens (JWT)</li>
+                        <li>Sessões e cookies</li>
+                        <li>API Keys</li>
+                        <li>OAuth 2.0 / OpenID Connect</li>
+                        <li>Autenticação multifator (MFA)</li>
+                        <li>Autenticação passwordless</li>
+                      </ul>
+                    </li>
+                    <li>JWT (JSON Web Tokens)
+                      <ul class="nested-list">
+                        <li>Estrutura e payload</li>
+                        <li>Assinatura e verificação</li>
+                        <li>Refresh tokens</li>
+                        <li>Armazenamento seguro</li>
+                        <li>Revogação</li>
+                      </ul>
+                    </li>
+                    <li>Bibliotecas e ferramentas
+                      <ul class="nested-list">
+                        <li>Passport.js</li>
+                        <li>Auth0 / Supabase Auth</li>
+                        <li>jsonwebtoken</li>
+                        <li>express-session</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Autorização</h4>
+                  <p class="card-subtitle">Controle de acesso a recursos</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Modelos de controle de acesso
+                      <ul class="nested-list">
+                        <li>Role-Based Access Control (RBAC)</li>
+                        <li>Attribute-Based Access Control (ABAC)</li>
+                        <li>Policy-Based Access Control</li>
+                        <li>Controle de acesso granular</li>
+                      </ul>
+                    </li>
+                    <li>Implementação
+                      <ul class="nested-list">
+                        <li>Middleware de autorização</li>
+                        <li>Verificação de permissões</li>
+                        <li>Decoradores/anotações de acesso</li>
+                      </ul>
+                    </li>
+                    <li>Ferramentas
+                      <ul class="nested-list">
+                        <li>CASL</li>
+                        <li>accesscontrol</li>
+                        <li>OSO</li>
+                        <li>Permify</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Segurança Web</h4>
+                  <p class="card-subtitle">Proteção contra vulnerabilidades</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>OWASP Top 10
+                      <ul class="nested-list">
+                        <li>Injection (SQL, NoSQL, command)</li>
+                        <li>Broken Authentication</li>
+                        <li>Cross-Site Scripting (XSS)</li>
+                        <li>Cross-Site Request Forgery (CSRF)</li>
+                        <li>Security Misconfigurations</li>
+                      </ul>
+                    </li>
+                    <li>Headers de segurança
+                      <ul class="nested-list">
+                        <li>Content Security Policy (CSP)</li>
+                        <li>CORS (Cross-Origin Resource Sharing)</li>
+                        <li>HSTS (HTTP Strict Transport Security)</li>
+                        <li>X-XSS-Protection</li>
+                        <li>X-Content-Type-Options</li>
+                      </ul>
+                    </li>
+                    <li>Técnicas de proteção
+                      <ul class="nested-list">
+                        <li>Input validation e sanitization</li>
+                        <li>Parametrização de queries</li>
+                        <li>Escape de output</li>
+                        <li>Rate limiting</li>
+                        <li>Logging e auditoria</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Criptografia e Gerenciamento de Dados</h4>
+                  <p class="card-subtitle">Proteção de dados sensíveis</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Hashing
+                      <ul class="nested-list">
+                        <li>Bcrypt, Argon2, Scrypt</li>
+                        <li>Salt e fatores de trabalho</li>
+                        <li>Hash de senhas</li>
+                      </ul>
+                    </li>
+                    <li>Criptografia
+                      <ul class="nested-list">
+                        <li>Simétrica vs Assimétrica</li>
+                        <li>AES, RSA</li>
+                        <li>Gerenciamento de chaves</li>
+                        <li>Criptografia em trânsito e em repouso</li>
+                      </ul>
+                    </li>
+                    <li>Compliance e regulamentações
+                      <ul class="nested-list">
+                        <li>GDPR (Europa)</li>
+                        <li>LGPD (Brasil)</li>
+                        <li>CCPA (Califórnia)</li>
+                        <li>PCI DSS (Pagamentos)</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block important">
+              <div class="note-title"><i class="fas fa-shield-alt"></i> Importante</div>
+              <p>A segurança deve ser uma preocupação desde o início do desenvolvimento, não algo adicionado
+                posteriormente. Nunca implemente seus próprios algoritmos criptográficos - use bibliotecas testadas e
+                mantidas pela comunidade.</p>
+            </div>
+          </div>
+
+          <!-- API Development -->
+          <div id="api-development" class="detail-section">
+            <h3 class="detail-section-title">Desenvolvimento de APIs</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">RESTful APIs</h4>
+                  <p class="card-subtitle">Interfaces de Programação de Aplicações baseadas em REST</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Princípios REST
+                      <ul class="nested-list">
+                        <li>Recursos e URIs</li>
+                        <li>Métodos HTTP (GET, POST, PUT, DELETE)</li>
+                        <li>Stateless</li>
+                        <li>HATEOAS</li>
+                      </ul>
+                    </li>
+                    <li>Design de APIs
+                      <ul class="nested-list">
+                        <li>Consistência e convenções</li>
+                        <li>Versionamento de APIs</li>
+                        <li>Paginação e filtragem</li>
+                        <li>Status codes HTTP</li>
+                        <li>Formatos de resposta</li>
+                      </ul>
+                    </li>
+                    <li>Documentação
+                      <ul class="nested-list">
+                        <li>OpenAPI/Swagger</li>
+                        <li>API Blueprint</li>
+                        <li>RAML</li>
+                        <li>Ferramentas de documentação</li>
+                      </ul>
+                    </li>
+                    <li>Testing
+                      <ul class="nested-list">
+                        <li>Testes unitários</li>
+                        <li>Testes de integração</li>
+                        <li>Testes de contrato</li>
+                        <li>Ferramentas como Postman, Insomnia</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">GraphQL</h4>
+                  <p class="card-subtitle">Linguagem de consulta e manipulação para APIs</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Conceitos fundamentais
+                      <ul class="nested-list">
+                        <li>Schema e tipos</li>
+                        <li>Queries e Mutations</li>
+                        <li>Resolvers</li>
+                        <li>Subscriptions</li>
+                        <li>Introspection</li>
+                      </ul>
+                    </li>
+                    <li>Implementações no Node.js
+                      <ul class="nested-list">
+                        <li>Apollo Server</li>
+                        <li>GraphQL Yoga</li>
+                        <li>TypeGraphQL</li>
+                        <li>Nexus</li>
+                      </ul>
+                    </li>
+                    <li>Features avançadas
+                      <ul class="nested-list">
+                        <li>Fragments</li>
+                        <li>Interfaces e Union Types</li>
+                        <li>Dataloaders (N+1 problem)</li>
+                        <li>Caching</li>
+                        <li>Federation</li>
+                      </ul>
+                    </li>
+                    <li>Ferramentas
+                      <ul class="nested-list">
+                        <li>GraphQL Playground/GraphiQL</li>
+                        <li>GraphQL Code Generator</li>
+                        <li>Apollo Studio</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Tempo Real e WebSockets</h4>
+                  <p class="card-subtitle">Comunicação bidirecional em tempo real</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>WebSockets
+                      <ul class="nested-list">
+                        <li>Protocolos e handshake</li>
+                        <li>Implementação com ws/WebSocket</li>
+                        <li>Comunicação full-duplex</li>
+                        <li>Gerenciamento de conexões</li>
+                      </ul>
+                    </li>
+                    <li>Socket.IO
+                      <ul class="nested-list">
+                        <li>Eventos e namespaces</li>
+                        <li>Rooms e broadcasting</li>
+                        <li>Fallback para polling</li>
+                        <li>Escalabilidade com Redis adapter</li>
+                      </ul>
+                    </li>
+                    <li>Alternativas
+                      <ul class="nested-list">
+                        <li>SSE (Server-Sent Events)</li>
+                        <li>GraphQL Subscriptions</li>
+                        <li>Webhooks</li>
+                        <li>Long polling</li>
+                      </ul>
+                    </li>
+                    <li>Casos de uso
+                      <ul class="nested-list">
+                        <li>Chat e mensageria</li>
+                        <li>Jogos multiplayer</li>
+                        <li>Dashboards em tempo real</li>
+                        <li>Notificações push</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Arquiteturas de API</h4>
+                  <p class="card-subtitle">Padrões para APIs escaláveis</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Microserviços
+                      <ul class="nested-list">
+                        <li>Princípios e vantagens</li>
+                        <li>Comunicação entre serviços</li>
+                        <li>Gateway de API</li>
+                        <li>Discovery de serviços</li>
+                      </ul>
+                    </li>
+                    <li>Serverless
+                      <ul class="nested-list">
+                        <li>Funções como serviço (FaaS)</li>
+                        <li>Cold start e limites</li>
+                        <li>Composição de funções</li>
+                        <li>Plataformas (AWS Lambda, Vercel, Netlify)</li>
+                      </ul>
+                    </li>
+                    <li>Event-Driven Architecture
+                      <ul class="nested-list">
+                        <li>Mensageria e filas</li>
+                        <li>Publish/Subscribe</li>
+                        <li>Event sourcing</li>
+                        <li>CQRS</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block tip">
+              <div class="note-title"><i class="fas fa-lightbulb"></i> Dica</div>
+              <p>A escolha entre REST e GraphQL depende do caso de uso. REST é mais simples e amplamente adotado,
+                enquanto GraphQL resolve problemas específicos como over-fetching e under-fetching.</p>
+            </div>
+          </div>
+
+          <!-- Web Servers -->
+          <div id="web-servers" class="detail-section">
+            <h3 class="detail-section-title">Servidores Web</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Fundamentos de Servidores Web</h4>
+                  <p class="card-subtitle">Conceitos e terminologia</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Como funcionam os servidores web</li>
+                    <li>Modelo de requisição-resposta</li>
+                    <li>Métodos HTTP e cabeçalhos</li>
+                    <li>Status codes</li>
+                    <li>Conexões persistentes</li>
+                    <li>HTTP/1.1 vs HTTP/2 vs HTTP/3</li>
+                    <li>Virtual hosts</li>
+                    <li>Web servers embutidos vs dedicados</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty beginner">Iniciante</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Nginx</h4>
+                  <p class="card-subtitle">Servidor web de alta performance</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Instalação e configuração básica</li>
+                    <li>Arquitetura baseada em eventos</li>
+                    <li>Configuração de proxy reverso
+                      <ul class="nested-list">
+                        <li>Balanceamento de carga</li>
+                        <li>Upstream servers</li>
+                        <li>Buffers e timeouts</li>
+                      </ul>
+                    </li>
+                    <li>SSL/TLS e HTTPS</li>
+                    <li>Caching e compressão</li>
+                    <li>Location blocks e matching</li>
+                    <li>Redirecionamentos e rewrites</li>
+                    <li>Rate limiting</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Apache</h4>
+                  <p class="card-subtitle">Servidor web tradicional e robusto</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Instalação e configuração</li>
+                    <li>Arquitetura baseada em processos/threads</li>
+                    <li>Virtual hosts</li>
+                    <li>Módulos e extensões</li>
+                    <li>.htaccess e configuração distribuída</li>
+                    <li>Configuração de SSL/TLS</li>
+                    <li>Rewrite rules</li>
+                    <li>Autenticação e autorização</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Otimização e Deployment</h4>
+                  <p class="card-subtitle">Configurações para produção</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Configurações de segurança
+                      <ul class="nested-list">
+                        <li>Headers de segurança</li>
+                        <li>SSL/TLS best practices</li>
+                        <li>Prevenção de ataques comuns</li>
+                      </ul>
+                    </li>
+                    <li>Performance
+                      <ul class="nested-list">
+                        <li>Compressão (gzip, Brotli)</li>
+                        <li>Caching e controle de cache</li>
+                        <li>HTTP/2 e HTTP/3</li>
+                        <li>Static file serving</li>
+                      </ul>
+                    </li>
+                    <li>Proxy reverso e gateway
+                      <ul class="nested-list">
+                        <li>Arquitetura de aplicação</li>
+                        <li>Balanceamento de carga</li>
+                        <li>Sticky sessions</li>
+                        <li>WebSockets proxying</li>
+                      </ul>
+                    </li>
+                    <li>Monitoramento e logs
+                      <ul class="nested-list">
+                        <li>Configuração de logs</li>
+                        <li>Análise de logs</li>
+                        <li>Health checks</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block warning">
+              <div class="note-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+              <p>Em produção, geralmente não é recomendado expor diretamente seu aplicativo Node.js à internet. Use um
+                servidor web como Nginx como proxy reverso na frente da sua aplicação.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DATABASES SECTION -->
+        <div class="section section-databases">
+          <div class="section-header">
+            <div class="section-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <h2 class="section-title">Bancos de Dados</h2>
+          </div>
+
+          <!-- SQL Databases -->
+          <div id="sql-databases" class="detail-section">
+            <h3 class="detail-section-title">Bancos Relacionais (SQL)</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Fundamentos SQL</h4>
+                  <p class="card-subtitle">Linguagem para bancos de dados relacionais</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Estrutura e sintaxe
+                      <ul class="nested-list">
+                        <li>DDL (CREATE, ALTER, DROP)</li>
+                        <li>DML (INSERT, UPDATE, DELETE)</li>
+                        <li>DQL (SELECT, JOIN, GROUP BY)</li>
+                        <li>DCL (GRANT, REVOKE)</li>
+                        <li>TCL (COMMIT, ROLLBACK)</li>
+                      </ul>
+                    </li>
+                    <li>Modelagem relacional
+                      <ul class="nested-list">
+                        <li>Tabelas e relações</li>
+                        <li>Chaves primárias e estrangeiras</li>
+                        <li>Normalização (1NF a 5NF)</li>
+                        <li>Índices e constraints</li>
+                        <li>Transações e ACID</li>
+                      </ul>
+                    </li>
+                    <li>Consultas avançadas
+                      <ul class="nested-list">
+                        <li>JOINs (INNER, LEFT, RIGHT, FULL)</li>
+                        <li>Subqueries e CTEs</li>
+                        <li>Window functions</li>
+                        <li>Funções agregadas</li>
+                        <li>Otimização de queries</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">PostgreSQL</h4>
+                  <p class="card-subtitle">Sistema de banco de dados relacional avançado</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Instalação e administração
+                      <ul class="nested-list">
+                        <li>Setup e configuração</li>
+                        <li>pgAdmin e interfaces</li>
+                        <li>Roles e permissões</li>
+                        <li>Backups e restauração</li>
+                      </ul>
+                    </li>
+                    <li>Features exclusivas
+                      <ul class="nested-list">
+                        <li>Tipos de dados avançados (JSON, ARRAY, HSTORE)</li>
+                        <li>Herança de tabelas</li>
+                        <li>Extensões (PostGIS, TimescaleDB)</li>
+                        <li>Funções e procedimentos armazenados</li>
+                        <li>Triggers e rules</li>
+                        <li>Full-text search</li>
+                      </ul>
+                    </li>
+                    <li>Performance
+                      <ul class="nested-list">
+                        <li>EXPLAIN e plano de execução</li>
+                        <li>Indexação avançada</li>
+                        <li>Particionamento</li>
+                        <li>Configuração e tuning</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">MySQL / MariaDB</h4>
+                  <p class="card-subtitle">Sistemas de banco de dados relacionais populares</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Instalação e configuração</li>
+                    <li>Administração básica e ferramentas</li>
+                    <li>Engines de armazenamento
+                      <ul class="nested-list">
+                        <li>InnoDB</li>
+                        <li>MyISAM</li>
+                        <li>Diferenças e casos de uso</li>
+                      </ul>
+                    </li>
+                    <li>Replicação e alta disponibilidade</li>
+                    <li>Otimização de performance
+                      <ul class="nested-list">
+                        <li>Índices e estratégias</li>
+                        <li>Query optimization</li>
+                        <li>Cache e buffers</li>
+                      </ul>
+                    </li>
+                    <li>MariaDB vs MySQL
+                      <ul class="nested-list">
+                        <li>Diferenças e vantagens</li>
+                        <li>Features adicionais</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">ORM (Object-Relational Mapping)</h4>
+                  <p class="card-subtitle">Integração de banco de dados com aplicações</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Conceitos ORM
+                      <ul class="nested-list">
+                        <li>Mapeamento objeto-relacional</li>
+                        <li>Entity relationships</li>
+                        <li>Active Record vs Data Mapper</li>
+                        <li>Lazy loading vs Eager loading</li>
+                        <li>Migrações</li>
+                      </ul>
+                    </li>
+                    <li>Prisma
+                      <ul class="nested-list">
+                        <li>Schema e models</li>
+                        <li>Migrations</li>
+                        <li>CRUD e queries</li>
+                        <li>Relations e nested queries</li>
+                      </ul>
+                    </li>
+                    <li>TypeORM
+                      <ul class="nested-list">
+                        <li>Entities e decorators</li>
+                        <li>Repositories</li>
+                        <li>Relations e lazy loading</li>
+                        <li>Query builder</li>
+                      </ul>
+                    </li>
+                    <li>Sequelize
+                      <ul class="nested-list">
+                        <li>Models e instâncias</li>
+                        <li>Hooks e validação</li>
+                        <li>Associations</li>
+                        <li>Queries e finders</li>
+                      </ul>
+                    </li>
+                    <li>Outros ORMs populares
+                      <ul class="nested-list">
+                        <li>Knex.js (query builder)</li>
+                        <li>MikroORM</li>
+                        <li>Objection.js</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block tip">
+              <div class="note-title"><i class="fas fa-lightbulb"></i> Dica</div>
+              <p>Mesmo usando um ORM, é importante entender SQL e o funcionamento dos bancos de dados relacionais. Em
+                cenários complexos ou de alta performance, você frequentemente precisará escrever SQL customizado.</p>
+            </div>
+          </div>
+
+          <!-- NoSQL Databases -->
+          <div id="nosql-databases" class="detail-section">
+            <h3 class="detail-section-title">Bancos Não-Relacionais (NoSQL)</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Bancos de Documentos</h4>
+                  <p class="card-subtitle">MongoDB e similares</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>MongoDB
+                      <ul class="nested-list">
+                        <li>Instalação e configuração</li>
+                        <li>CRUD operations</li>
+                        <li>Esquema flexível</li>
+                        <li>Aggregation pipeline</li>
+                        <li>Índices e performance</li>
+                        <li>Transactions</li>
+                        <li>Sharding e replicação</li>
+                        <li>MongoDB Atlas (cloud)</li>
+                      </ul>
+                    </li>
+                    <li>Mongoose (ODM)
+                      <ul class="nested-list">
+                        <li>Schemas e models</li>
+                        <li>Validação</li>
+                        <li>Middleware/hooks</li>
+                        <li>Populate/references</li>
+                        <li>Queries e operations</li>
+                      </ul>
+                    </li>
+                    <li>Firebase Firestore
+                      <ul class="nested-list">
+                        <li>Document-collection model</li>
+                        <li>Real-time updates</li>
+                        <li>Security rules</li>
+                        <li>Queries e limitações</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Bancos Chave-Valor</h4>
+                  <p class="card-subtitle">Redis e similares</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Redis
+                      <ul class="nested-list">
+                        <li>Estruturas de dados: Strings, Lists, Sets, Hashes, Sorted Sets</li>
+                        <li>Persistência (RDB, AOF)</li>
+                        <li>Pub/Sub</li>
+                        <li>Transactions</li>
+                        <li>Lua scripting</li>
+                        <li>Expiração e TTL</li>
+                        <li>Clustering e sharding</li>
+                      </ul>
+                    </li>
+                    <li>Casos de uso
+                      <ul class="nested-list">
+                        <li>Caching</li>
+                        <li>Rate limiting</li>
+                        <li>Filas e messaging</li>
+                        <li>Leaderboards e contadores</li>
+                        <li>Session store</li>
+                        <li>Throttling e deduplicação</li>
+                      </ul>
+                    </li>
+                    <li>Integrações
+                      <ul class="nested-list">
+                        <li>Node.js clients (ioredis, node-redis)</li>
+                        <li>Redis Stack (RedisSearch, RedisJSON)</li>
+                        <li>Monitoramento e administração</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Outros Tipos NoSQL</h4>
+                  <p class="card-subtitle">Bancos de colunas, grafos e mais</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Bancos de colunas
+                      <ul class="nested-list">
+                        <li>Cassandra</li>
+                        <li>ScyllaDB</li>
+                        <li>Casos de uso: Big Data, séries temporais</li>
+                      </ul>
+                    </li>
+                    <li>Bancos de grafos
+                      <ul class="nested-list">
+                        <li>Neo4j</li>
+                        <li>Cypher Query Language</li>
+                        <li>Casos de uso: Redes sociais, recomendações, rotas</li>
+                      </ul>
+                    </li>
+                    <li>Time-series databases
+                      <ul class="nested-list">
+                        <li>InfluxDB</li>
+                        <li>TimescaleDB (extensão PostgreSQL)</li>
+                        <li>Casos de uso: IoT, métricas, monitoramento</li>
+                      </ul>
+                    </li>
+                    <li>Bancos wide-column
+                      <ul class="nested-list">
+                        <li>HBase</li>
+                        <li>Casos de uso: Análise de grandes volumes</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Padrões de Uso NoSQL</h4>
+                  <p class="card-subtitle">Boas práticas e considerações</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Modelagem de dados
+                      <ul class="nested-list">
+                        <li>Embedding vs referencing</li>
+                        <li>Desnormalização</li>
+                        <li>Modelagem orientada a consultas</li>
+                        <li>Schema design patterns</li>
+                      </ul>
+                    </li>
+                    <li>Desafios e considerações
+                      <ul class="nested-list">
+                        <li>Consistência eventual</li>
+                        <li>Transações</li>
+                        <li>ACID vs BASE</li>
+                        <li>Teorema CAP</li>
+                        <li>Escalabilidade</li>
+                      </ul>
+                    </li>
+                    <li>Soluções multi-modelo
+                      <ul class="nested-list">
+                        <li>ArangoDB</li>
+                        <li>FaunaDB</li>
+                        <li>CosmosDB (Azure)</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block warning">
+              <div class="note-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+              <p>Escolha o tipo de banco de dados com base nos requisitos do seu projeto, não nas tendências. Bancos
+                NoSQL não são substitutos universais para bancos relacionais - cada tipo tem seus casos de uso ideais.
+              </p>
+            </div>
+          </div>
+
+          <!-- Database Patterns -->
+          <div id="database-patterns" class="detail-section">
+            <h3 class="detail-section-title">Padrões e Conceitos</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Modelagem de Dados</h4>
+                  <p class="card-subtitle">Princípios e estratégias</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Princípios de modelagem
+                      <ul class="nested-list">
+                        <li>Modelagem conceitual, lógica e física</li>
+                        <li>Entidade-Relacionamento (ER)</li>
+                        <li>UML para banco de dados</li>
+                        <li>Normalização vs desnormalização</li>
+                      </ul>
+                    </li>
+                    <li>Estratégias em diferentes paradigmas
+                      <ul class="nested-list">
+                        <li>Relacional: normalização, índices, constraints</li>
+                        <li>Documento: embedding vs referencing</li>
+                        <li>Grafo: nodes, edges, propriedades</li>
+                        <li>Chave-valor: estrutura de chaves, namespaces</li>
+                      </ul>
+                    </li>
+                    <li>Padrões comuns
+                      <ul class="nested-list">
+                        <li>Polimorfismo</li>
+                        <li>Árvores e hierarquias</li>
+                        <li>Muitos-para-muitos</li>
+                        <li>Histórico e auditoria</li>
+                        <li>Soft delete</li>
+                        <li>Particionamento vertical e horizontal</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Caching</h4>
+                  <p class="card-subtitle">Estratégias para otimização de desempenho</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Tipos de cache
+                      <ul class="nested-list">
+                        <li>Cache na aplicação (in-memory)</li>
+                        <li>Cache distribuído</li>
+                        <li>Cache em camadas</li>
+                        <li>Cache de consulta</li>
+                        <li>Full-page cache</li>
+                        <li>CDN</li>
+                      </ul>
+                    </li>
+                    <li>Estratégias de cache
+                      <ul class="nested-list">
+                        <li>Cache-aside (lazy loading)</li>
+                        <li>Write-through</li>
+                        <li>Write-behind (write-back)</li>
+                        <li>Refresh-ahead</li>
+                      </ul>
+                    </li>
+                    <li>Políticas de invalidação
+                      <ul class="nested-list">
+                        <li>Time-based (TTL)</li>
+                        <li>Event-based</li>
+                        <li>LRU, LFU, FIFO</li>
+                      </ul>
+                    </li>
+                    <li>Implementações
+                      <ul class="nested-list">
+                        <li>Redis</li>
+                        <li>Memcached</li>
+                        <li>Node-cache</li>
+                        <li>Bibliotecas de caching</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Migrações e Versionamento</h4>
+                  <p class="card-subtitle">Gerenciamento de evolução do esquema</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Fundamentos de migrações
+                      <ul class="nested-list">
+                        <li>Versionamento de esquema</li>
+                        <li>Migrações reversíveis (up/down)</li>
+                        <li>Estados e transições</li>
+                        <li>Migrações automatizadas vs manuais</li>
+                      </ul>
+                    </li>
+                    <li>Ferramentas de migração
+                      <ul class="nested-list">
+                        <li>TypeORM migrations</li>
+                        <li>Sequelize migrations</li>
+                        <li>Prisma migrations</li>
+                        <li>Knex migrations</li>
+                        <li>node-pg-migrate</li>
+                        <li>Flyway, Liquibase (Java)</li>
+                      </ul>
+                    </li>
+                    <li>Boas práticas
+                      <ul class="nested-list">
+                        <li>Migrações em ambientes de produção</li>
+                        <li>Estratégias sem downtime</li>
+                        <li>Rollback e planejamento de contingência</li>
+                        <li>Testes de migração</li>
+                        <li>Integração com CI/CD</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Arquiteturas Avançadas</h4>
+                  <p class="card-subtitle">Padrões para sistemas complexos</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Multi-tenancy
+                      <ul class="nested-list">
+                        <li>Banco de dados compartilhado</li>
+                        <li>Schema compartilhado</li>
+                        <li>Banco de dados dedicado</li>
+                        <li>Implementações híbridas</li>
+                      </ul>
+                    </li>
+                    <li>Sharding
+                      <ul class="nested-list">
+                        <li>Estratégias de sharding</li>
+                        <li>Sharding horizontal e vertical</li>
+                        <li>Chave de sharding</li>
+                        <li>Balanceamento e rebalanceamento</li>
+                      </ul>
+                    </li>
+                    <li>Padrões event-sourcing e CQRS
+                      <ul class="nested-list">
+                        <li>Event store</li>
+                        <li>Projeções</li>
+                        <li>Separação de leitura e escrita</li>
+                        <li>Event streaming com Kafka</li>
+                      </ul>
+                    </li>
+                    <li>Polyglot persistence
+                      <ul class="nested-list">
+                        <li>Utilizar múltiplos tipos de bancos</li>
+                        <li>Consistência entre bancos</li>
+                        <li>Transações distribuídas</li>
+                        <li>Casos de uso</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block tip">
+              <div class="note-title"><i class="fas fa-lightbulb"></i> Dica</div>
+              <p>Considere o caching desde o início do desenvolvimento. Um sistema de cache bem implementado pode
+                reduzir drasticamente a carga no banco de dados e melhorar significativamente a performance da
+                aplicação.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEVOPS SECTION -->
+        <div class="section section-devops">
+          <div class="section-header">
+            <div class="section-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h2 class="section-title">DevOps & Infraestrutura</h2>
+          </div>
+
+          <!-- Deployment & Hosting -->
+          <div id="deployment" class="detail-section">
+            <h3 class="detail-section-title">Deployment & Hosting</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Ambientes e Configuração</h4>
+                  <p class="card-subtitle">Gerenciamento de diferentes ambientes</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Ambientes de desenvolvimento
+                      <ul class="nested-list">
+                        <li>Local, desenvolvimento, staging, produção</li>
+                        <li>Paridade de ambientes</li>
+                        <li>Ambientes efêmeros (PR previews)</li>
+                      </ul>
+                    </li>
+                    <li>Gestão de configuração
+                      <ul class="nested-list">
+                        <li>Variáveis de ambiente</li>
+                        <li>Secrets management</li>
+                        <li>Configuration as code</li>
+                        <li>Feature flags</li>
+                      </ul>
+                    </li>
+                    <li>Infrastructure as Code (IaC)
+                      <ul class="nested-list">
+                        <li>Terraform</li>
+                        <li>AWS CloudFormation</li>
+                        <li>Pulumi</li>
+                        <li>Ansible</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Plataformas de Hospedagem</h4>
+                  <p class="card-subtitle">Serviços para deploy de aplicações</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Plataformas Serverless
+                      <ul class="nested-list">
+                        <li>Vercel</li>
+                        <li>Netlify</li>
+                        <li>AWS Lambda + API Gateway</li>
+                        <li>Google Cloud Functions</li>
+                        <li>Azure Functions</li>
+                      </ul>
+                    </li>
+                    <li>PaaS (Platform as a Service)
+                      <ul class="nested-list">
+                        <li>Heroku</li>
+                        <li>Railway</li>
+                        <li>Render</li>
+                        <li>Google App Engine</li>
+                        <li>AWS Elastic Beanstalk</li>
+                      </ul>
+                    </li>
+                    <li>IaaS (Infrastructure as a Service)
+                      <ul class="nested-list">
+                        <li>AWS EC2</li>
+                        <li>Google Compute Engine</li>
+                        <li>DigitalOcean Droplets</li>
+                        <li>Linode</li>
+                        <li>Azure Virtual Machines</li>
+                      </ul>
+                    </li>
+                    <li>Serviços gerenciados
+                      <ul class="nested-list">
+                        <li>AWS RDS (bancos de dados)</li>
+                        <li>MongoDB Atlas</li>
+                        <li>Supabase</li>
+                        <li>Firebase</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Deployment Strategies</h4>
+                  <p class="card-subtitle">Técnicas para deploy seguro e confiável</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Estratégias de release
+                      <ul class="nested-list">
+                        <li>Big bang deployment</li>
+                        <li>Rolling updates</li>
+                        <li>Blue-green deployment</li>
+                        <li>Canary releases</li>
+                        <li>Feature toggles</li>
+                      </ul>
+                    </li>
+                    <li>Continuous Integration (CI)
+                      <ul class="nested-list">
+                        <li>Testes automatizados</li>
+                        <li>Code quality checks</li>
+                        <li>Build e artifacts</li>
+                        <li>Integração com VCS</li>
+                      </ul>
+                    </li>
+                    <li>Continuous Deployment (CD)
+                      <ul class="nested-list">
+                        <li>Pipeline de deployment</li>
+                        <li>Aprovações e gates</li>
+                        <li>Rollback automatizado</li>
+                        <li>Monitoramento pós-deploy</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Monitoramento e Logging</h4>
+                  <p class="card-subtitle">Sistemas para observabilidade</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Logging
+                      <ul class="nested-list">
+                        <li>Estruturação de logs</li>
+                        <li>Níveis de log</li>
+                        <li>Log rotation</li>
+                        <li>Agregação de logs</li>
+                        <li>ELK Stack (Elasticsearch, Logstash, Kibana)</li>
+                        <li>Fluentd/Fluent Bit</li>
+                      </ul>
+                    </li>
+                    <li>Métricas e monitoramento
+                      <ul class="nested-list">
+                        <li>Prometheus e Grafana</li>
+                        <li>Datadog</li>
+                        <li>New Relic</li>
+                        <li>CloudWatch (AWS)</li>
+                        <li>Dashboards e alertas</li>
+                      </ul>
+                    </li>
+                    <li>APM (Application Performance Monitoring)
+                      <ul class="nested-list">
+                        <li>Rastreamento de transações</li>
+                        <li>Profiling</li>
+                        <li>Análise de latência</li>
+                        <li>Distributed tracing</li>
+                        <li>OpenTelemetry</li>
+                      </ul>
+                    </li>
+                    <li>Alerting e on-call
+                      <ul class="nested-list">
+                        <li>Definição de thresholds</li>
+                        <li>PagerDuty</li>
+                        <li>OpsGenie</li>
+                        <li>Escalações e rotatividade</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block important">
+              <div class="note-title"><i class="fas fa-info-circle"></i> Importante</div>
+              <p>Independentemente da plataforma de hospedagem escolhida, sempre considere aspectos como custos
+                recorrentes, vendor lock-in, suporte, conformidade, escalabilidade e limites operacionais.</p>
+            </div>
+          </div>
+
+          <!-- Containerization -->
+          <div id="containerization" class="detail-section">
+            <h3 class="detail-section-title">Containerização</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Docker</h4>
+                  <p class="card-subtitle">Plataforma de containers</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Conceitos fundamentais
+                      <ul class="nested-list">
+                        <li>Containers vs. VMs</li>
+                        <li>Imagens e camadas</li>
+                        <li>Dockerfile</li>
+                        <li>Volumes</li>
+                        <li>Rede e comunicação</li>
+                      </ul>
+                    </li>
+                    <li>Comandos e operações
+                      <ul class="nested-list">
+                        <li>Build, run, stop, exec</li>
+                        <li>Gerenciamento de imagens</li>
+                        <li>Logs e debugging</li>
+                        <li>Tag e versionamento</li>
+                        <li>Registry e distribuição</li>
+                      </ul>
+                    </li>
+                    <li>Boas práticas
+                      <ul class="nested-list">
+                        <li>Multi-stage builds</li>
+                        <li>Imagens mínimas</li>
+                        <li>Segurança de containers</li>
+                        <li>Health checks</li>
+                        <li>Otimização de performance</li>
+                      </ul>
+                    </li>
+                    <li>Node.js em containers
+                      <ul class="nested-list">
+                        <li>Configuração ideal</li>
+                        <li>Gerenciamento de dependências</li>
+                        <li>Gestão de sinais e graceful shutdown</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Docker Compose</h4>
+                  <p class="card-subtitle">Orquestração multi-container</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Conceitos básicos
+                      <ul class="nested-list">
+                        <li>docker-compose.yml</li>
+                        <li>Serviços e dependências</li>
+                        <li>Networks</li>
+                        <li>Volumes</li>
+                        <li>Environment variables</li>
+                      </ul>
+                    </li>
+                    <li>Comandos e operações
+                      <ul class="nested-list">
+                        <li>up, down, build, logs</li>
+                        <li>exec, run</li>
+                        <li>restart policies</li>
+                        <li>scale</li>
+                      </ul>
+                    </li>
+                    <li>Desenvolvimento local
+                      <ul class="nested-list">
+                        <li>Ambientes dev vs prod</li>
+                        <li>Bind mounts para código</li>
+                        <li>Hot reloading</li>
+                        <li>Debugging</li>
+                      </ul>
+                    </li>
+                    <li>Aplicações completas
+                      <ul class="nested-list">
+                        <li>Frontend + Backend + DB</li>
+                        <li>Serviços auxiliares</li>
+                        <li>Profiles e Extends</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Kubernetes</h4>
+                  <p class="card-subtitle">Orquestração de containers em escala</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Arquitetura
+                      <ul class="nested-list">
+                        <li>Control plane e Data plane</li>
+                        <li>Nodes, Pods, Containers</li>
+                        <li>Deployments, StatefulSets, DaemonSets</li>
+                        <li>Services, Ingress</li>
+                        <li>ConfigMaps, Secrets</li>
+                        <li>Namespaces</li>
+                        <li>RBAC (Role-Based Access Control)</li>
+                      </ul>
+                    </li>
+                    <li>Operações básicas
+                      <ul class="nested-list">
+                        <li>kubectl</li>
+                        <li>YAML manifests</li>
+                        <li>Deployments e rollbacks</li>
+                        <li>Logs e debugging</li>
+                        <li>Port forwarding</li>
+                      </ul>
+                    </li>
+                    <li>Armazenamento
+                      <ul class="nested-list">
+                        <li>Volumes</li>
+                        <li>PersistentVolumes e PersistentVolumeClaims</li>
+                        <li>StorageClasses</li>
+                      </ul>
+                    </li>
+                    <li>Networking
+                      <ul class="nested-list">
+                        <li>Cluster Networking</li>
+                        <li>Service Discovery</li>
+                        <li>Network Policies</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Kubernetes Avançado</h4>
+                  <p class="card-subtitle">Conceitos avançados e extensões</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Helm
+                      <ul class="nested-list">
+                        <li>Charts e templates</li>
+                        <li>Valores e configuração</li>
+                        <li>Releases e rollbacks</li>
+                        <li>Repositories</li>
+                      </ul>
+                    </li>
+                    <li>Operadores
+                      <ul class="nested-list">
+                        <li>Custom Resources</li>
+                        <li>Operator Framework</li>
+                        <li>Casos de uso</li>
+                      </ul>
+                    </li>
+                    <li>Service Mesh
+                      <ul class="nested-list">
+                        <li>Istio</li>
+                        <li>Linkerd</li>
+                        <li>Traffic management</li>
+                        <li>mTLS</li>
+                      </ul>
+                    </li>
+                    <li>Plataformas gerenciadas
+                      <ul class="nested-list">
+                        <li>EKS (AWS)</li>
+                        <li>GKE (Google Cloud)</li>
+                        <li>AKS (Azure)</li>
+                        <li>DigitalOcean Kubernetes</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block warning">
+              <div class="note-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+              <p>Kubernetes é uma excelente solução para orquestração de containers em grande escala, mas introduz
+                complexidade significativa. Para aplicações menores, considere soluções mais simples como Docker Compose
+                ou serviços gerenciados.</p>
+            </div>
+          </div>
+
+          <!-- CI/CD -->
+          <div id="cicd" class="detail-section">
+            <h3 class="detail-section-title">CI/CD</h3>
+            <div class="card-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">GitHub Actions</h4>
+                  <p class="card-subtitle">CI/CD integrado ao GitHub</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Conceitos fundamentais
+                      <ul class="nested-list">
+                        <li>Workflows e Eventos</li>
+                        <li>Jobs e Steps</li>
+                        <li>Actions</li>
+                        <li>Runners</li>
+                        <li>Ambientes</li>
+                      </ul>
+                    </li>
+                    <li>Configuração
+                      <ul class="nested-list">
+                        <li>YAML Syntax</li>
+                        <li>Triggers e filtros</li>
+                        <li>Secrets e variáveis</li>
+                        <li>Caching e performance</li>
+                        <li>Matrix builds</li>
+                      </ul>
+                    </li>
+                    <li>Workflows comuns
+                      <ul class="nested-list">
+                        <li>Testes e linting</li>
+                        <li>Build e release</li>
+                        <li>Deploy para ambientes</li>
+                        <li>Container builds</li>
+                        <li>Scheduled jobs</li>
+                      </ul>
+                    </li>
+                    <li>Integrações
+                      <ul class="nested-list">
+                        <li>Vercel, Netlify, Heroku</li>
+                        <li>AWS, GCP, Azure</li>
+                        <li>Docker e registries</li>
+                        <li>Dependabot</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">GitLab CI</h4>
+                  <p class="card-subtitle">CI/CD integrado ao GitLab</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Conceitos básicos
+                      <ul class="nested-list">
+                        <li>Pipelines e stages</li>
+                        <li>Jobs e runners</li>
+                        <li>.gitlab-ci.yml</li>
+                        <li>Variáveis e secrets</li>
+                        <li>Artifacts e caching</li>
+                      </ul>
+                    </li>
+                    <li>Features avançadas
+                      <ul class="nested-list">
+                        <li>Multi-project pipelines</li>
+                        <li>Parent-child pipelines</li>
+                        <li>DAG (directed acyclic graph)</li>
+                        <li>Release management</li>
+                        <li>Environments e deployments</li>
+                      </ul>
+                    </li>
+                    <li>Integrações
+                      <ul class="nested-list">
+                        <li>Container Registry</li>
+                        <li>Package Registry</li>
+                        <li>Security scanning</li>
+                        <li>Kubernetes integration</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty intermediate">Intermediário</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Jenkins</h4>
+                  <p class="card-subtitle">Servidor de automação open-source</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Arquitetura
+                      <ul class="nested-list">
+                        <li>Master e nodes</li>
+                        <li>Jobs e builds</li>
+                        <li>Plugins</li>
+                        <li>Pipelines</li>
+                        <li>Credentials</li>
+                      </ul>
+                    </li>
+                    <li>Jenkinsfile
+                      <ul class="nested-list">
+                        <li>Declarative vs Scripted</li>
+                        <li>Stages e Steps</li>
+                        <li>Parallel execution</li>
+                        <li>Shared libraries</li>
+                      </ul>
+                    </li>
+                    <li>Integrações
+                      <ul class="nested-list">
+                        <li>SCM (Git, SVN)</li>
+                        <li>Build tools</li>
+                        <li>Test frameworks</li>
+                        <li>Docker e Kubernetes</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Práticas de CI/CD</h4>
+                  <p class="card-subtitle">Padrões e estratégias</p>
+                </div>
+                <div class="card-content">
+                  <ul class="card-list">
+                    <li>Testes automatizados
+                      <ul class="nested-list">
+                        <li>Unit, integration, e2e</li>
+                        <li>Cobertura de código</li>
+                        <li>Paralelização</li>
+                        <li>Test reports</li>
+                      </ul>
+                    </li>
+                    <li>Quality gates
+                      <ul class="nested-list">
+                        <li>Linting e formatação</li>
+                        <li>Análise estática</li>
+                        <li>Security scanning</li>
+                        <li>Threshold enforcement</li>
+                      </ul>
+                    </li>
+                    <li>Deployment
+                      <ul class="nested-list">
+                        <li>Ambientes múltiplos</li>
+                        <li>Promoção entre ambientes</li>
+                        <li>Blue-Green e Canary</li>
+                        <li>Rollback automático</li>
+                      </ul>
+                    </li>
+                    <li>DevSecOps
+                      <ul class="nested-list">
+                        <li>SAST (Static Application Security Testing)</li>
+                        <li>DAST (Dynamic Application Security Testing)</li>
+                        <li>Dependency scanning</li>
+                        <li>Container scanning</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <span class="difficulty advanced">Avançado</span>
+                  <a href="#" class="learn-more">Aprender mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-block tip">
+              <div class="note-title"><i class="fas fa-lightbulb"></i> Dica</div>
+              <p>GitHub Actions é excelente para começar com CI/CD, especialmente se seus projetos já estão no GitHub.
+                Ele oferece um bom equilíbrio entre facilidade de uso e recursos avançados.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-nav">
+          <button id="backToTop" class="floating-nav-button back-to-top">
+            <i class="fas fa-arrow-up"></i>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Mobile menu toggle
+      const mobileMenuBtn = document.querySelector('.mobile-menu-toggle');
+      const sidebar = document.querySelector('.sidebar');
+
+      mobileMenuBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('active');
+      });
+
+      // Theme toggle
+      const themeToggle = document.getElementById('themeToggle');
+
+      themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+
+        if (document.body.classList.contains('dark-mode')) {
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+          localStorage.setItem('theme', 'light');
+        }
+      });
+
+      // Check for saved theme preference
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+
+      // Tabs
+      const tabBtns = document.querySelectorAll('.tab-btn');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const tabId = this.getAttribute('data-tab');
+
+          // Remove active class from all buttons and content
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+          // Add active class to current button and content
+          this.classList.add('active');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+
+      // Copy buttons
+      const copyBtns = document.querySelectorAll('.copy-btn');
+
+      copyBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const command = this.getAttribute('data-command');
+          navigator.clipboard.writeText(command).then(() => {
+            const originalText = this.textContent;
+            this.textContent = 'Copiado!';
+
+            setTimeout(() => {
+              this.textContent = originalText;
+            }, 2000);
+          }).catch(err => {
+            console.error('Erro ao copiar: ', err);
+          });
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById('searchInput');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          const searchTerm = this.value.toLowerCase();
+          const sections = document.querySelectorAll('.detail-section');
+
+          sections.forEach(section => {
+            const sectionText = section.textContent.toLowerCase();
+            const sectionTitle = section.querySelector('.detail-section-title').textContent.toLowerCase();
+
+            if (sectionText.includes(searchTerm) || sectionTitle.includes(searchTerm)) {
+              section.style.display = 'block';
+            } else {
+              section.style.display = 'none';
+            }
+          });
+        });
+      }
+
+      // Back to top button
+      const backToTopBtn = document.getElementById('backToTop');
+
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+
+      backToTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Sidebar links
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', function () {
+          // Remove active class from all links
+          sidebarLinks.forEach(l => l.classList.remove('active'));
+
+          // Add active class to clicked link
+          this.classList.add('active');
+
+          // Close sidebar on mobile
+          if (window.innerWidth <= 768) {
+            sidebar.classList.remove('active');
+          }
+        });
+      });
+
+      // Highlight active section on scroll
+      window.addEventListener('scroll', function () {
+        let currentSection = '';
+        const sections = document.querySelectorAll('.detail-section');
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          const sectionHeight = section.offsetHeight;
+
+          if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+
+        if (currentSection) {
+          sidebarLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
